@@ -8,9 +8,9 @@ defmodule ApiTecsolfacil.ClientHttp.ViaCep do
     "/ws/#{cep}/json"
     |> get()
     |> handle_response()
-
   end
 
+  # defp handle_response({:ok, %Tesla.Env{status: 200, body: body}}) when body == {"error" => true}, do: {:error, "Address not found"}
   defp handle_response({:ok, %Tesla.Env{status: 200, body: body}}), do: {:ok, body}
-  defp handle_response({:error, _reason} = error), do: error
+  defp handle_response({:error, %Tesla.Env{body: reason}}), do: reason
 end

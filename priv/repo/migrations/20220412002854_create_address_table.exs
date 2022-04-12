@@ -11,6 +11,6 @@ defmodule ApiTecsolfacil.Repo.Migrations.CreateAddressTable do
       timestamps()
   end
 
-  create unique_index(:adresses [:id, :cep, :locality, :uf])
+  create unique_index(:adresses, [:id, :cep, :locality, :uf])
   end
 end

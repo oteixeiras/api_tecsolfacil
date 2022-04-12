@@ -6,10 +6,12 @@
   defstruct @keys
 
   def build({:ok, %{"cep" => cep, "localidade" => locality, "uf" => uf}}) do
-  %{
+    %{
       cep: cep,
       locality: locality,
       uf: uf
     }
   end
+
+  def build({:error, _reason} = error), do: error
 end
