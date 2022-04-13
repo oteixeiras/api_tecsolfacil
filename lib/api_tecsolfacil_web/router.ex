@@ -7,6 +7,9 @@ defmodule ApiTecsolfacilWeb.Router do
 
   scope "/api", ApiTecsolfacilWeb do
     pipe_through :api
+
+    post "/adresses/create", AdressesController, :create
+    # get "/address/report", AdressesController, :report
   end
 
   # Enables the Swoosh mailbox preview in development.
