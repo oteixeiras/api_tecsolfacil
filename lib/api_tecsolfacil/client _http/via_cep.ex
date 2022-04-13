@@ -7,10 +7,14 @@ defmodule ApiTecsolfacil.ClientHttp.ViaCep do
   def get_address(cep) do
     "/ws/#{cep}/json"
     |> get()
-    |> handle_response()
+    |> handle_get()
   end
 
-  # defp handle_response({:ok, %Tesla.Env{status: 200, body: body}}) when body == {"error" => true}, do: {:error, "Address not found"}
-  defp handle_response({:ok, %Tesla.Env{status: 200, body: body}}), do: {:ok, body}
-  defp handle_response({:error, %Tesla.Env{body: reason}}), do: reason
+  defp handle_get({:ok, %Tesla.Env{body: %{"erro" => true}}}) do
+    {:error, "Address not found"}
+  end
+
+  defp handle_get({:ok, %Tesla.Env{status: 200, body: body}}), do: {:ok, body}
+  defp handle_get({:ok, %Tesla.Env{status: 400, body: _body}}), do: {:error, "Invalid CEP"}
+  defp handle_get({:error, reason}), do: {:error, reason}
 end

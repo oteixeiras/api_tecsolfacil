@@ -2,21 +2,32 @@ defmodule ApiTecsolfacil.Address do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @primary_key {:id, Ecto.UUID, autogenerate: true}
-
   schema "adresses" do
-    field :cep, :integer
-    field :locality, :string
+    field :cep, :string
+    field :logradouro, :string
+    field :complemento, :string
+    field :bairro, :string
+    field :localidade, :string
     field :uf, :string
+    field :ddd, :integer
 
     timestamps()
   end
 
-  @required_params [:cep, :locality, :uf]
+  def build(params) do
+    params
+    |> changeset()
+    |> apply_action(:insert)
+
+  end
+
+  @required_params [:cep, :localidade, :uf]
+  @required_opt [:logradouro, :complemento, :bairro, :ddd]
 
   def changeset(params) do
     %__MODULE__{}
-    |> cast(params, @required_params)
+    |> cast(params, @required_params ++ @required_opt)
     |> validate_required(@required_params)
+    |> unique_constraint([:cep])
   end
 end
