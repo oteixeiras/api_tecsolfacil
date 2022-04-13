@@ -1,5 +1,5 @@
 defmodule ApiTecsolfacil do
-  alias ApiTecsolfacil.Address
+  alias ApiTecsolfacil.{Address,Accounts}
 
     @moduledoc """
     Plugfacilapi keeps the contexts that define your domain
@@ -9,5 +9,7 @@ defmodule ApiTecsolfacil do
     """
     defdelegate format_of_cep(params), to: Address.FormateInputCep, as: :call
     defdelegate create_candidate(params), to: Address.Create, as: :call
-    # defdelegate fetch_candidate(params), to: Address.Get, as: :get
+
+
+    defdelegate create_user(params), to: Accounts.CreateUser, as: :call
 end
