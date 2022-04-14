@@ -7,6 +7,12 @@
 # General application configuration
 import Config
 
+# Confing Oban
+config :api_tecsolfacil, Oban,
+  repo: ApiTecsolfacil.Repo,
+  plugins: [Oban.Plugins.Pruner],
+  queues: [default: 10, csv: 25]
+
 config :api_tecsolfacil,
   ecto_repos: [ApiTecsolfacil.Repo]
 
